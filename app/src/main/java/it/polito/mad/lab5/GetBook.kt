@@ -10,15 +10,23 @@ import kotlinx.android.synthetic.main.activity_get_book.*
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
-import android.view.ViewGroup
+import android.util.Log
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import it.polito.mad.lab5.Chat.ChatMessage
+import it.polito.mad.lab5.Chat.ChatMessage1
 import it.polito.mad.lab5.SearchBook.SearchBook
+import it.polito.mad.lab5.beans.Message
 import kotlinx.android.synthetic.main.top_back.*
 import java.util.*
 
 class GetBook : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.OnClickListener {
+
+    // for logging ---------------------------------------
+    internal var className = this.javaClass.simpleName
+    internal var TAG = "--- $className --- "
+    // ---------------------------------------------------
+
+    var mDatabase: DatabaseReference? = null
 
     private var topText: TextView? = null
     private var res: Resources? = null
@@ -27,6 +35,10 @@ class GetBook : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.On
     var ownerID : String = ""
     var otherID : String = ""
     var bookTitle : String = ""
+
+    var receiverUid: String = ""
+    var senderName: String = ""
+    var senderUid: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +49,17 @@ class GetBook : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.On
         val intent = intent
         copyID = intent.getStringExtra("copyID") as String
         ownerID = intent.getStringExtra("ownerID") as String
+        receiverUid = ownerID
+        senderName = intent.getStringExtra("senderName") as String
         bookTitle = intent.getStringExtra("title") as String
+
+        mDatabase = FirebaseDatabase.getInstance().reference
 
         topText!!.text = bookTitle
 
         val sharedPref = this.getSharedPreferences("shared_id", Context.MODE_PRIVATE)
         otherID = sharedPref.getString("uID", null)
+        senderUid = otherID
 
         backButton!!.setOnClickListener(this)
         backButton!!.setBackgroundColor(Color.TRANSPARENT)
@@ -141,14 +158,17 @@ class GetBook : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.On
         CHATref.child(chatID).child("ownerID").setValue(ownerID)
         CHATref.child(chatID).child("otherID").setValue(otherID)
         try {
-            if (msg!!.text != null) {
+            if (msg!!.text != null&& !(msg.text.toString().equals(""))) {
                 FirebaseDatabase.getInstance()
                         .reference
                         .child("chats")
                         .child(chatID)
                         .child("messages")
                         .push()
-                        .setValue( ChatMessage(msg.getText().toString(), otherID) )
+                        .setValue(ChatMessage1(msg.getText().toString(), otherID))
+
+                //this will create message and notification for the user
+                createMessage(msg.getText().toString(),senderUid, receiverUid)
 
                 FirebaseDatabase.getInstance()
                         .reference
@@ -179,5 +199,60 @@ class GetBook : AppCompatActivity(), AdapterView.OnItemSelectedListener, View.On
     override fun onNothingSelected(arg0: AdapterView<*>) {
 
             }
+    fun createMessage(msg: String, _ownerUid: String, _userUid: String) {
+        // this function creates a message object and pushes it on messages on Firebase
+        // and also it creates a notification and pushes it into notifications on firebase
+        val mDatabase = FirebaseDatabase.getInstance().reference
+
+        val timestamp = Date().time
+        val dayTimestamp = getDayTimestamp(timestamp)
+
+        val message = Message(
+                timestamp,
+                -timestamp,
+                dayTimestamp,
+                msg,
+                _ownerUid,
+                _userUid,
+                senderName)
+        try {
+            mDatabase
+                    .child("notifications")
+                    .child("messages")
+                    .push()
+                    .setValue(message)
+            Log.i(TAG, "pushed in notifications.messages: $message")
+
+            mDatabase
+                    .child("messages")
+                    .child(_userUid)
+                    .child(_ownerUid)
+                    .push()
+                    .setValue(message)
+            Log.i(TAG, "pushed messages in userUid: $message")
+
+            if (_userUid != _ownerUid) {
+                mDatabase
+                        .child("messages")
+                        .child(_ownerUid)
+                        .child(_userUid)
+                        .push()
+                        .setValue(message)
+                Log.i(TAG, "pushed messages in ownerUid: $message")
+            }
+
+        } catch (e : Exception) {}
+    }
+
+
+    private fun getDayTimestamp(timestamp: Long): Long {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = timestamp
+        calendar.set(Calendar.MILLISECOND, 0)
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        return calendar.timeInMillis
+    }
 
 }

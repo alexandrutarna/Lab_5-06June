@@ -9,7 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import it.polito.mad.lab5.R;
 
@@ -28,23 +30,26 @@ public class ChatAdapter extends ArrayAdapter<ChatMessage> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         ChatMessage msg = getItem(position);
-        String str = msg.getMessageText() + "\n" + msg.getMessageTime().substring(11,16);
+        Timestamp stamp = new Timestamp(msg.message.getTimestamp());
+        Date date = new Date(stamp.getTime());
+
+        String str = msg.message.getBody() + "\n" + date.toString().substring(11,16);
         TextView text = null;
 
         // Check if an existing view is being reused, otherwise inflate the view
 
-            if (msg.getuID().equals(msg.getMessageUser())) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_right, parent, false);
-                text = (TextView) convertView.findViewById(R.id.msg_text_r);
-            } else {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_left, parent, false);
-                text = (TextView) convertView.findViewById(R.id.msg_text_l);
-                if (msg.getSeen()) {
-                    ImageView seen = (ImageView) convertView.findViewById(R.id.seen);
-                    seen.setVisibility(View.VISIBLE);
-                    seen.setColorFilter(Color.WHITE);
-                }
+        if (msg.message.getFrom().equals(msg.getuID())) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_right, parent, false);
+            text = (TextView) convertView.findViewById(R.id.msg_text_r);
+        } else {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.message_left, parent, false);
+            text = (TextView) convertView.findViewById(R.id.msg_text_l);
+            if (msg.getSeen()) {
+                ImageView seen = (ImageView) convertView.findViewById(R.id.seen);
+                seen.setVisibility(View.VISIBLE);
+                seen.setColorFilter(Color.WHITE);
             }
+        }
 
         text.setText(str);
 

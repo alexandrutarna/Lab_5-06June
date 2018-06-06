@@ -91,63 +91,63 @@ public class Notify extends Application {
                     ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                for (DataSnapshot issue : dataSnapshot.child("users").child(uID).child("chats").getChildren()) {
-                                    final String chatID = issue.getValue(String.class);
-                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                    DatabaseReference myRef = database.getReference("chats/" + chatID + "/messages");
-                                    myRef.addChildEventListener(new ChildEventListener() {
-                                        @Override
-                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                            if (dataSnapshot.exists()) {
-                                                //String checkTime = ChatMessage.getCurrentTime();
-                                                String messageTime = dataSnapshot.child("messageTime").getValue(String.class);
-                                                final String messageUser = dataSnapshot.child("messageUser").getValue(String.class);
-                                                final String messageText = dataSnapshot.child("messageText").getValue(String.class);
-                                                final long msgTime = ChatMessage.getTime(messageTime);
-                                                final long now = new Date().getTime();
-                                                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("users/" + messageUser + "/name");
-                                                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        //compare if msg arrive 1 second ago notfy , if more ignore or add a parameter.
-                                                        final String name = dataSnapshot.getValue(String.class);
-                                                        if (((now - msgTime) <= 5000) && (!messageUser.equals(uID)))
-                                                        {
-                                                            Notify.this.notify(name,messageText,chatID);
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(DatabaseError databaseError) {
-
-                                                    }
-                                                });
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                        }
-
-                                        @Override
-                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                        }
-
-                                        @Override
-                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-                                }
-                            }
+//                            if (dataSnapshot.exists()) {
+//                                for (DataSnapshot issue : dataSnapshot.child("users").child(uID).child("chats").getChildren()) {
+//                                    final String chatID = issue.getValue(String.class);
+//                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                                    DatabaseReference myRef = database.getReference("chats/" + chatID + "/messages");
+//                                    myRef.addChildEventListener(new ChildEventListener() {
+//                                        @Override
+//                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                                            if (dataSnapshot.exists()) {
+//                                                //String checkTime = ChatMessage.getCurrentTime();
+//                                                String messageTime = dataSnapshot.child("messageTime").getValue(String.class);
+//                                                final String messageUser = dataSnapshot.child("messageUser").getValue(String.class);
+//                                                final String messageText = dataSnapshot.child("messageText").getValue(String.class);
+//                                                final long msgTime = ChatMessage.getTime(messageTime);
+//                                                final long now = new Date().getTime();
+//                                                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("users/" + messageUser + "/name");
+//                                                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                                    @Override
+//                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                                                        //compare if msg arrive 1 second ago notfy , if more ignore or add a parameter.
+//                                                        final String name = dataSnapshot.getValue(String.class);
+//                                                        if (((now - msgTime) <= 5000) && (!messageUser.equals(uID)))
+//                                                        {
+//                                                            Notify.this.notify(name,messageText,chatID);
+//                                                        }
+//                                                    }
+//
+//                                                    @Override
+//                                                    public void onCancelled(DatabaseError databaseError) {
+//
+//                                                    }
+//                                                });
+//                                            }
+//                                        }
+//
+//                                        @Override
+//                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//                                        }
+//
+//                                        @Override
+//                                        public void onCancelled(DatabaseError databaseError) {
+//
+//                                        }
+//                                    });
+//                                }
+//                            }
                         }
 
                         @Override

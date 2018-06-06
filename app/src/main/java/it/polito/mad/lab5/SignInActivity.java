@@ -33,19 +33,26 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import android.widget.Button;
 import android.graphics.Paint;
 
 import it.polito.mad.lab5.SearchBook.SearchBook;
+import it.polito.mad.lab5.beans.User;
 
 
 public class SignInActivity extends AppCompatActivity
         implements View.OnClickListener, ValueEventListener {
-    private final String TAG = "FB_SIGNIN";
+
+    // for logging ---------------------------------------
+    String className = this.getClass().getSimpleName();
+    String TAG = "--- " + className + " --- ";
+    // ---------------------------------------------------
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mDatabase;
 
     private EditText etPass;
     private EditText etEmail;
@@ -74,7 +81,8 @@ public class SignInActivity extends AppCompatActivity
         String textTopString = res.getString(R.string.bookSharing);
         topText.setText(textTopString);
 
-
+        // reference for DB to save user, otherwise NULLPOINTER
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // Set up click handlers and view item references
         findViewById(R.id.btnCreate).setOnClickListener(this);
@@ -114,6 +122,12 @@ public class SignInActivity extends AppCompatActivity
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "Signed in: " + user.getUid());
+                    addUserToDatabase(user);
+                    Log.i(TAG, "onAuthStateChanged: user added:" + user);
+
+                    String instanceId = FirebaseInstanceId.getInstance().getToken();
+                    Log.i(TAG, "Instance ID:" + instanceId);
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "Currently signed out");
@@ -369,6 +383,31 @@ public class SignInActivity extends AppCompatActivity
 
         //editor.apply();
 
+    }
+
+
+    private void addUserToDatabase(FirebaseUser firebaseUser) {
+
+        User user = new User(
+                firebaseUser.getDisplayName(),
+                firebaseUser.getEmail(),
+                firebaseUser.getUid(),
+                firebaseUser.getPhotoUrl() == null ? "" : firebaseUser.getPhotoUrl().toString()
+        );
+
+        Log.i(TAG, "addUserToDatabase(): " + user);
+
+        mDatabase.child("usr")
+                .child(user.getUid()).setValue(user);
+
+        String instanceId = FirebaseInstanceId.getInstance().getToken();
+        Log.i(TAG, " in addUserToDB instanceId: " + instanceId);
+        if (instanceId != null) {
+            mDatabase.child("usr")
+                    .child(firebaseUser.getUid())
+                    .child("instanceId")
+                    .setValue(instanceId);
+        }
     }
 
     @Override

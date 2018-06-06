@@ -371,8 +371,13 @@ public class ShowProfile extends AppCompatActivity  implements View.OnClickListe
         if (imageUrl != null) {
             try {
                 imageBitmap = decodeFromFirebaseBase64(imageUrl);
-                final ImageView img = findViewById(R.id.img);
-                img.setImageBitmap(imageBitmap);
+
+                ImageView imageViewRound = (ImageView) findViewById(R.id.img);
+
+
+                imageViewRound.setImageBitmap(imageBitmap);
+//                final ImageView img = findViewById(R.id.img);
+//                img.setImageBitmap(imageBitmap);
                 //System.out.println("la sto prendendo dal database");
             } catch (IOException e) {
                 e.printStackTrace();

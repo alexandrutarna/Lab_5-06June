@@ -28,6 +28,11 @@ import android.widget.ArrayAdapter;
 
 public class ChatListAdapter extends ArrayAdapter<ChatItem> {
 
+    // for logging ---------------------------------------
+    String className = this.getClass().getSimpleName();
+    String TAG = "--- " + className + " --- ";
+    // ---------------------------------------------------
+
     private Context context;
 
     public ChatListAdapter(Context context, ArrayList<ChatItem> chatItem) {
@@ -42,7 +47,7 @@ public class ChatListAdapter extends ArrayAdapter<ChatItem> {
         final ChatItem item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item2, parent, false);
         }
         // Lookup view for data population
         Button button = (Button) convertView.findViewById(R.id.button);
@@ -52,7 +57,11 @@ public class ChatListAdapter extends ArrayAdapter<ChatItem> {
         // Populate the data into the template view using the data object
         tvTitle.setText(item.title);
         tvTitle.setTextColor(Color.DKGRAY);
-        tvImg.setImageBitmap(item.getImage());
+        try {
+            tvImg.setImageBitmap(item.getImage());
+        }catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         //if (item.img != null) tvImg.setImageBitmap(book.img);
 
         button.setBackgroundColor(Color.TRANSPARENT);
@@ -62,6 +71,8 @@ public class ChatListAdapter extends ArrayAdapter<ChatItem> {
 
                 Intent chatIntent = new Intent(context, Chat.class);
                 chatIntent.putExtra("chatID",item.getChatID());
+                chatIntent.putExtra("otherUid", item.getChatID());
+
                 chatIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(chatIntent);
             }

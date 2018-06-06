@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -41,6 +42,11 @@ import it.polito.mad.lab5.ShowProfile;
 import it.polito.mad.lab5.SignInActivity;
 
 public class ChatList extends AppCompatActivity implements View.OnClickListener, ValueEventListener {
+
+    // for logging ---------------------------------------
+    String className = this.getClass().getSimpleName();
+    String TAG = "--- " + className + " --- ";
+    // ---------------------------------------------------
 
     private boolean menu_is_present = false;
     private String uID;
@@ -195,41 +201,56 @@ public class ChatList extends AppCompatActivity implements View.OnClickListener,
         topText.setText(textTopString);
 
         if (dataSnapshot.exists()) {
-            System.out.println("snapshot exists");
+            Log.i(TAG, "my Uid:" + uID);
+            Log.i(TAG, "snapshot exists");
 
             ArrayList<ChatItem> list = new ArrayList<ChatItem>();
 
             // dataSnapshot is the "issue" node with all children with id 0
-            for (DataSnapshot issue : dataSnapshot.child("users").child(uID).child("chats").getChildren()) {
-                String chatID = issue.getValue(String.class);
-                System.out.println("item found: " + chatID);
+            for (DataSnapshot issue : dataSnapshot.child("messages").child(uID).getChildren()) {
+//                String chatID = issue.getValue(String.class);
+//                System.out.println("item found: " + chatID);
 
-                String copyID  = dataSnapshot.child("chats").child(chatID).child("copyID").getValue(String.class);
-                String copyTitle = dataSnapshot.child("copies").child(copyID).child("title").getValue(String.class);
+                long ChildrenCount = issue.getChildrenCount();
+                Log.i(TAG, "ChildrenCount: " + ChildrenCount);
 
-                String ownerID = dataSnapshot.child("chats").child(chatID).child("ownerID").getValue(String.class);
-                String otherID = dataSnapshot.child("chats").child(chatID).child("otherID").getValue(String.class);
-                String imageUrl;// other;
+                String otherUid = issue.getKey();
+                Log.i(TAG, "item found - otherUid: " + otherUid);
 
-                if (ownerID == uID) {
-                    imageUrl = dataSnapshot.child("users").child(otherID).child("imageUrl").getValue(String.class);
-                    //other =  dataSnapshot.child("users").child(usr2).child("name").getValue(String.class);
-                }
-                    else {
-                    imageUrl = dataSnapshot.child("users").child(ownerID).child("imageUrl").getValue(String.class);
-                    //other =  dataSnapshot.child("users").child(usr1).child("name").getValue(String.class);
-                }
-                Bitmap image = null;
-                if (imageUrl != null) try {
+                // try added because of a null pointer exception
+                try {
+
+                    String myName = dataSnapshot.child("users").child(uID).child("name").getValue(String.class);
+                    Log.i(TAG, "myName: " + myName);
+
+                    String otherName = dataSnapshot.child("users").child(otherUid).child("name").getValue(String.class);
+                    Log.i(TAG, "otherName: " + otherName);
+
+                    String imageUrl;  // other;
+
+                    if (otherUid == uID) {
+                        imageUrl = dataSnapshot.child("users").child(uID).child("imageUrl").getValue(String.class);
+                        //other =  dataSnapshot.child("users").child(usr2).child("name").getValue(String.class);
+                    } else {
+                        imageUrl = dataSnapshot.child("users").child(otherUid).child("imageUrl").getValue(String.class);
+                        //other =  dataSnapshot.child("users").child(usr1).child("name").getValue(String.class);
+                    }
+                    Bitmap image = null;
+                    if (imageUrl != null) try {
                         image = decodeFromFirebaseBase64(imageUrl);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-                //String ownerID = dataSnapshot.child("copies").child(copyID).child("userID").getValue(String.class);
-
-                list.add(new ChatItem(copyTitle,chatID,image));
+                    //String ownerID = dataSnapshot.child("copies").child(copyID).child("userID").getValue(String.class);
+                    ChatItem newItem = new ChatItem(otherName, otherUid, image);
+                    Log.i(TAG, "Added Item: " + newItem.toString());
+                    list.add(newItem);
+                } catch (NullPointerException e) {
+                    Log.i(TAG, "Caught null pointer exception: ");
+                    e.printStackTrace();
                 }
+            }
             ChatListAdapter adapter = new ChatListAdapter(getApplicationContext(), list);
             ListView listView = findViewById(R.id.listView);
             listView.setAdapter(adapter);
