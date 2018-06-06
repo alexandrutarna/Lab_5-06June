@@ -1,0 +1,139 @@
+<resources>
+    <string name="app_name">Group23</string>
+    <string name="edit">edit</string>
+    <string name="name">Name</string>
+    <string name="mail">Mail</string>
+    <string name="bio">Bio</string>
+    <string name="bio_text">Bio</string>
+    <string name="done">Done</string>
+    <string name="preference">preference</string>
+    <string name="photo">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="saveMessage">Saved</string>
+    <string name="save">Save</string>
+
+    <string name="your_email">Your email address</string>
+    <string name="your_pass">Password</string>
+    <string name="confirm_pass">Password</string>
+    <string name="sign_in_button">Sign In</string>
+    <string name="create_acc_button">Create Account</string>
+    <string name="sign_out_button">Sign Out</string>
+    <string name="sign_in_msg">Signed In: </string>
+    <string name="sign_out_msg">Signed Out</string>
+    <string name="sign_in_btn_1">Sign In</string>
+    <string name="confirm">Confirm</string>
+
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="publisher">Publisher</string>
+    <string name="editionYear">Edition Year</string>
+    <string name="bookCondition">Book Condition</string>
+    <string name="isbn">ISBN</string>
+    <string name="spinner_hint">Genre...</string>
+
+    <string name="no_genre_selected">No genre selected...</string>
+
+    <string name="txtscanISBN">"Click here to capture your ISBN code"</string>
+    <string name="txtTakePhoto">Click here to take a picture of your book</string>
+    <string name="txtManualBtn">Manual insert</string>
+    <string name="type">Type...</string>
+
+    <string name="geo">City</string>
+    <string name="geohint">Insert your city</string>
+
+
+    <string name="middlebar">Share your books -></string>
+
+    <string-array name="genre_array">
+        <item>Select a genre</item>
+        <item>Libri per bambini</item>
+        <item>Romanzi rosa</item>
+        <item>Letteratura e narrativa</item>
+        <item>Gialli e Thriller</item>
+        <item>Libri scolastici</item>
+        <item>Società e scienze sociali</item>
+        <item>Scienze, tecnologia e medicina</item>
+        <item>Fantascienza e Fantasy</item>
+        <item>Religione</item>
+        <item>Racconti</item>
+        <item>Tempo libero</item>
+        <item>Biografie, diari e memorie</item>
+        <item>Famiglia, salute e benessere</item>
+        <item>Self-help</item>
+        <item>Adolescenti e ragazzi</item>
+        <item>Arte, cinema e fotografia</item>
+        <item>Calendari e agende</item>
+        <item>Diritto</item>
+        <item>Dizionari e opere di consultazione</item>
+        <item>Economia, affari e finanza</item>
+        <item>Erotica</item>
+        <item>Fumetti e manga</item>
+        <item>Guide di revisione e aiuto allo studio</item>
+        <item>Humour</item>
+        <item>Informatica, Web e Digital Media</item>
+        <item>Lingua, linguistica e scrittura</item>
+        <item>Politica</item>
+        <item>Sport</item>
+        <item>Storia</item>
+        <item>Viaggi</item>
+    </string-array>
+
+
+    <string-array name="month_array">
+        <item>Gennaio</item>
+        <item>Febbraio</item>
+        <item>Marzo</item>
+        <item>Aprile</item>
+        <item>Maggio</item>
+        <item>Giugno</item>
+        <item>Luglio</item>
+        <item>Agosto</item>
+        <item>Settembre</item>
+        <item>Ottobre</item>
+        <item>Novembre</item>
+        <item>Dicembre</item>
+    </string-array>
+
+    <string name="month">mm</string>
+    <string name="day">dd</string>
+    <string name="year">yyyy</string>
+
+    <string name="type_search">Type here the title of the book to search...</string>
+    <string name="search_book">Find or share a book</string>
+    <string name="click_to_chat">Your chats</string>
+    <string name="openChat">Chat</string>
+    <string name="askBook">Ask Book</string>
+    <string name="returnDate">Return Date</string>
+    <string name="loanDate">Loan Date</string>
+    <string name="getBookMsg">Type here to contact the book owner</string>
+    <string name="from">From</string>
+    <string name="to">to</string>
+    <string name="accept">Accept</string>
+    <string name="refuse">Refuse</string>
+    <string name="delete_request">Delete</string>
+    <string name="accepted">Accepted</string>
+    <string name="refused">Refused</string>
+    <string name="my_books">My books</string>
+    <string name="profile">Profile</string>
+    <string name="received_request">Received requests</string>
+    <string name="sent_request">Sent requests</string>
+    <string name="exit">Log out</string>
+    <string name="chat">Messages</string>
+    <string name="genre">Genre</string>
+    <string name="rate">RATE</string>
+    <string name="from_utente">From</string>
+    <string name="editProfile">Edit Profile</string>
+    <string name="connecting">Connecting...</string>
+    <string name="chatList">My Chats</string>
+    <string name="newBook">Add a new book</string>
+    <string name="receivedRequest">Received Requests</string>
+    <string name="sentRequest">Sent Requests</string>
+    <string name="bookSharing">Book Sharing</string>
+    <string name="myBooks">My Books</string>
+    <string name="showProfile">My Profile</string>
+    <string name="signingIn">Signing in...</string>
+    <string name="signedIn">Signed In</string>
+
+
+</resources>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <include layout="@layout/edit_top"/>
+
+        <TextView
+            android:id="@+id/txtTakePhoto"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="10dp"
+            android:layout_below="@id/toolbar_top"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/txtTakePhoto"/>
+
+        <ImageButton
+            android:id="@+id/takePhotoBook"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/txtTakePhoto"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/add_photo_128" />
+
+        <TextView
+            android:id="@+id/scanISBNTxt"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="10dp"
+            android:layout_below="@+id/takePhotoBook"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/txtscanISBN"
+            />
+
+
+
+        <ImageButton
+            android:id="@+id/read_barcode"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/scanISBNTxt"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/scan_128"
+            />
+
+        <Button
+            android:id="@+id/manualBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_below="@+id/read_barcode"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:text="@string/txtManualBtn" />
+
+
+        <EditText
+            android:visibility="invisible"
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="10dp"
+            android:layout_below="@+id/takePhotoBook"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/title"
+            />
+
+        <EditText
+            android:visibility="invisible"
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="10dp"
+            android:layout_below="@+id/title"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/author"
+
+            />
+
+        <EditText
+            android:visibility="invisible"
+            android:id="@+id/publisher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="10dp"
+            android:layout_below="@+id/author"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/publisher"
+
+            />
+
+        <EditText
+            android:visibility="invisible"
+            android:id="@+id/editionYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="10dp"
+            android:layout_below="@+id/publisher"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/editionYear"
+            />
+
+        <Spinner
+            android:visibility="invisible"
+            android:id="@+id/genre_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editionYear"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:autofillHints="@string/spinner_hint">
+        </Spinner>
+
+        <EditText
+            android:visibility="invisible"
+            android:id="@+id/bookCondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="10dp"
+            android:layout_below="@+id/genre_spinner"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/bookCondition"
+            />
+
+
+        <EditText
+            android:visibility="invisible"
+            android:id="@+id/isbn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:padding="10dp"
+            android:layout_below="@+id/bookCondition"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/isbn" />
+
+
+        <Button android:visibility="invisible"
+            android:id="@+id/saveButton2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:textAlignment="center"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/isbn"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/save"   />
+
+    </RelativeLayout>
+
+</ScrollView>

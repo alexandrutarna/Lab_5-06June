@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
+
+    defaultConfig {
+        applicationId "it.polito.mad.group23"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+
+    compile 'com.google.firebase:firebase-config:12.0.1'
+    compile 'com.google.firebase:firebase-auth:12.0.1'
+
+    compile 'com.google.firebase:firebase-core:12.0.1'
+
+    implementation 'com.google.firebase:firebase-storage:12.0.1'
+    implementation 'com.google.firebase:firebase-database:12.0.1'
+
+    compile 'com.android.support:design:27.1.1'
+    compile 'com.google.android.gms:play-services-vision:12.0.1'
+
+    compile 'com.google.android.gms:play-services:12.0.1'
+
+    compile 'com.android.support:mediarouter-v7:27.1.1'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+
+apply plugin: 'com.google.gms.google-services'
+
+
+
+
+
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'

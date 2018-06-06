@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/top_back"
+            android:id="@+id/topBar"/>
+
+    <TextView android:id="@+id/loanDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topBar"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:text="@string/loanDate"/>
+
+    <Spinner
+        android:id="@+id/loanD"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/loanDate"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:gravity="center">
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/loanM"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loanDate"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/loanY"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/loanDate"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center">
+    </Spinner>
+
+    <TextView android:id="@+id/returnDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loanD"
+        android:layout_marginTop="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:text="@string/returnDate"/>
+
+
+    <Spinner
+        android:id="@+id/returnD"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/returnDate"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/returnM"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/returnDate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+    </Spinner>
+
+    <Spinner
+        android:id="@+id/returnY"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/returnDate"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center">
+    </Spinner>
+
+    <EditText
+        android:id="@+id/msg"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:maxHeight="100dp"
+        android:layout_below="@id/returnD"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/getBookMsg"/>
+
+
+    <Button
+        android:id="@+id/getBookButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimaryDark"
+        android:hint="@string/askBook"
+        android:gravity="center"
+        />
+
+</RelativeLayout>
+
